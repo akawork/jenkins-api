@@ -2,44 +2,56 @@
 
 ## Table of contents
 
----
+- [Install akawork-jenkins-api](#install)
+- [Usage](#usage)
 
-- [Some features to implement](#feature)
-  + [Actions with job](#job)
-  + [Actions with node](#node)
-  + [Actions with user](#user)
+## Install akawork-jenkins-api <a id="install"></a>
 
-## Some features to implement <a id="feature"></a>
+- Firstly, install node package jenkins api in your project as below:
 
----
+```bash
+npm install --save akawork-jenkins-api
+```
 
-### Actions with job <a id="job"></a>
+## Usage <a id="usage"></a>
 
----
+### Setup
 
-- [ ] Job is folder
-- [ ] Job is disable
-- [ ] Total jobs
-- [ ] Build job
-- [ ] Get build log
-- [ ] Status last build
-- [ ] Disable job
-- [ ] Create job
-- [ ] Delete job
+```javascript
+const jenkins = require('akawork-jenkins-api');
 
-### Actions with node <a id="node"></a>
+//enter your jenkins
+const Jenkins = jenkins('http://username:password@localhost:8080');
+```
 
----
+### Get Job Information
 
-- [ ] Node is online
-- [ ] Total nodes
-- [ ] Create node
-- [ ] Delete node
+```javascript
+async function get_url(job_name){
+    let job_info = await Jenkins.Job.getJobInfo(job_name);
+    console.log(job_info.url)
+}
+get_url('test/abc') // test/abc: test is folder and abc is job inside that folder.
+```
 
-### Actions with user <a id="user"></a>
+### Get All Jobs
 
----
+```javascript
+async function get_total_jobs(){
+    let list = await Jenkins.Job.getAllJobs();
+    console.log(list)
+}
+```
 
-- [ ] User is exist
-- [ ] Total users
-- [ ] Delete user
+### Rename
+
+```javascript
+async function rename(){
+    // oldname: abc newname:fff
+    let rs = await J.Job.reName('abc','fff');
+    if(rs.statusText === "OK"){
+        console.log('rename success')
+    }
+}
+rename()
+```
