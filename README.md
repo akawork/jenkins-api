@@ -17,6 +17,8 @@
     - [Disable job](#disable)
     - [Enable job](#enable)
     - [Copy job](#copy)
+  - [Build](#build)
+    - [Get build info](#build-info)
 
 ## Install akawork-jenkins-api <a id="install"></a>
 
@@ -141,4 +143,16 @@ Jenkins.Job.enable('job_name')
 
 ```javascript
 Jenkins.Job.copy('from_job','to_job')
+```
+
+### Build <a id="build"></a>
+
+#### Get Build Info <a id="build-info"></a>
+
+```javascript
+async function test(){
+    // 'abc' is job name, 3 is build number
+    console.log(await Jenkins.Build.get_build_info('abc',3))
+}
+test();
 ```
