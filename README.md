@@ -17,6 +17,13 @@
     - [Disable job](#disable)
     - [Enable job](#enable)
     - [Copy job](#copy)
+  - [Build](#build)
+    - [Get build info](#build-info)
+    - [Build job](#build-job)
+    - [Stop running build](#stop-build)
+    - [Get build result](#build-result)
+    - [Delete build](#delete-build)
+    - [Total build in a job](#all-builds)
 
 ## Install akawork-jenkins-api <a id="install"></a>
 
@@ -61,11 +68,8 @@ async function get_total_jobs(){
 #### Rename <a id="rename"></a>
 
 ```javascript
-async function rename(){
     // oldname: abc newname:fff
-    await J.Job.rename('abc','fff');
-}
-rename()
+    J.Job.rename('abc','fff');
 ```
 
 #### Create job <a id="create"></a>
@@ -141,4 +145,57 @@ Jenkins.Job.enable('job_name')
 
 ```javascript
 Jenkins.Job.copy('from_job','to_job')
+```
+
+### Build <a id="build"></a>
+
+#### Get Build Info <a id="build-info"></a>
+
+```javascript
+async function test(){
+    // 'abc' is job name, 3 is build number
+    console.log(await Jenkins.Build.get_build_info('abc',3))
+}
+test();
+```
+
+#### Build job <a id="build-job"></a>
+
+```javascript
+    // 'abc' is job name
+    Jenkins.Build.build_job('abc')
+```
+
+#### Stop running job <a id="stop-build"></a>
+
+```javascript
+    // 'abc' is job name, stop build number: 9
+    Jenkins.Build.stop_build('abc',9)
+```
+
+#### Get build result <a id="build-result"></a>
+
+```javascript
+async function test(){
+    // 'abc' is job name, build number to get log is 7
+    console.log(await Jenkins.Build.get_build_log('abc',7))
+}
+test();
+```
+
+#### Delete build number <a id="delete-build"></a>
+
+```javascript
+    // 'abc' is job name and delete build number 9
+    Jenkins.Build.delete('abc',9)
+```
+
+#### Get all builds <a id="all-builds"></a>
+
+```javascript
+    async function test(){
+    // 'abc' is job name
+    console.log(await Jenkins.Build.get_builds('abc'))
+}
+test();
 ```
